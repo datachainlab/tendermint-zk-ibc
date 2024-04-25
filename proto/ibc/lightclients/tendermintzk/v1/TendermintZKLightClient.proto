@@ -1,0 +1,43 @@
+syntax = "proto3";
+package ibc.lightclients.tendermintzk.v1;
+
+import "@hyperledger-labs/yui-ibc-solidity/proto/core/02-client/Client.proto";
+
+message ClientState {
+  bytes step_verifier_digest = 1;
+  bytes skip_verifier_digest = 2;
+  uint64 trusting_period = 3;
+
+  bool frozen = 4;
+  Height latest_height = 5;
+}
+
+message ConsensusState {
+  bytes block_hash = 1;
+  bytes app_hash = 2;
+  uint64 timestamp = 3;
+}
+
+message UpdateStateMessage {
+  uint64 trusted_height = 1;
+  uint64 untrusted_height = 2;
+  bytes untrusted_block_hash = 3;
+  uint64 timestamp = 4;
+  bytes app_hash = 5;
+  repeated bytes simple_tree_proof = 6;
+  repeated bytes input = 7;
+  bytes zk_proof = 8;
+}
+
+message Timestamp {
+  // Represents seconds of UTC time since Unix epoch
+  // 1970-01-01T00:00:00Z. Must be from 0001-01-01T00:00:00Z to
+  // 9999-12-31T23:59:59Z inclusive.
+  int64 seconds_ = 1;
+
+  // Non-negative fractions of a second at nanosecond resolution. Negative
+  // second values with fractions must still have non-negative nanos values
+  // that count forward in time. Must be from 0 to 999,999,999
+  // inclusive.
+  int32 nanos = 2;
+}

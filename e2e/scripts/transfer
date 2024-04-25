@@ -1,0 +1,19 @@
+#!/bin/bash
+
+set -eux
+
+SCRIPT_DIR=$(cd $(dirname $0); pwd)
+CONF_DIR=${SCRIPT_DIR}/../configs
+RLY_BINARY=${SCRIPT_DIR}/../build/yrly
+RLY="${RLY_BINARY} --debug"
+
+ETH_RECEIPENT_ADDRESS="0xa89F47C6b463f74d87572b058427dA0A13ec5425"
+
+echo "!!! ibc0 -> ibc1 !!!"
+
+${RLY} tx transfer ibc01 ibc0 ibc1 100samoleans ${ETH_RECEIPENT_ADDRESS}
+sleep 3
+${RLY} tx relay ibc01 --src-seqs 1
+sleep 3
+${RLY} tx acks ibc01 --dst-seqs 1
+sleep 3

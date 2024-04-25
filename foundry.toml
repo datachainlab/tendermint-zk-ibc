@@ -1,0 +1,6 @@
+[profile.default]
+src = "contracts"
+out = "out"
+libs = ["lib", "node_modules"]
+optimizer = true
+fs_permissions = [{ access = "read", path = "./"}]

@@ -1,0 +1,35 @@
+networks:
+  relayer-e2e:
+    name: &network-common relayer-e2e
+
+services:
+  tendermint-chain:
+    container_name: tendermint-chain
+    image: tendermint-chain:${TAG}
+    ports:
+      - 26656:26656
+      - 26657:26657
+      - 6060:6060
+      - 9090:9090
+    healthcheck:
+      test: "wget -q -O - http://localhost:26657/health || exit 1"
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    environment:
+      USE_ZK_CLIENT: 1
+    networks:
+      - *network-common
+
+  ethereum-geth:
+    container_name: ethereum-geth
+    image: ethereum-geth:${TAG}
+    ports:
+      - 8545:8545
+    healthcheck:
+      test: [ "CMD", "curl", "-X", "POST", "-H", "'Content-Type: application/json'", "--data", '{"jsonrpc":"2.0","method":"eth_getBlockByNumber","params":["0x0", false],"id":1}', "http://127.0.0.1:8545" ]
+      interval: "5s"
+      timeout: "10s"
+      retries: 10
+    networks:
+      - *network-common

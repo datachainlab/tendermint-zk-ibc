@@ -1,0 +1,16 @@
+syntax = "proto3";
+package relayer.provers.tendermintzk.config;
+
+import "gogoproto/gogo.proto";
+
+option go_package = "github.com/datachainlab/tendermint-zk-ibc/go/relay";
+
+option (gogoproto.goproto_getters_all) = false;
+
+message ProverConfig {
+  string zk_prover_addr = 1;
+  string step_verifier_digest = 2;
+  string skip_verifier_digest = 3;
+  string prover_type = 4;
+  string trusting_period = 5;
+}

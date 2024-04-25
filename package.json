@@ -1,0 +1,12 @@
+{
+  "name": "tendermint-zk-lc",
+  "version": "0.1.0",
+  "description": "Tendermint ZK Light Client for ibc-solidity",
+  "dependencies": {
+    "@hyperledger-labs/yui-ibc-solidity": "git+https://github.com/hyperledger-labs/yui-ibc-solidity.git#v0.3.26"
+  },
+  "devDependencies": {
+    "solhint": "^4.0.0"
+  },
+  "license": "Apache-2.0"
+}
